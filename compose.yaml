@@ -1,0 +1,41 @@
+services:
+  rem-app:
+    container_name: rem-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DISCORD_BOT_TOKEN=
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=otakuniyasashiigyaru
+      - DB_NAME=rem_app_db
+      - DB_SSLMODE=disable
+      - TZ=Asia/Tokyo
+
+  db:
+    container_name: rem-app-db
+    image: postgres:17.5
+    environment:
+      TZ: Asia/Tokyo
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: otakuniyasashiigyaru
+      POSTGRES_DB: rem_app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_store:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+volumes:
+  db_store:
+
