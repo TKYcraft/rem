@@ -1,4 +1,4 @@
-FROM golang:1.24.3 as builder
+FROM golang:1.24.3 AS builder
 
 WORKDIR /app
 
@@ -13,8 +13,13 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o rem ./cmd/rem/mai
 RUN chmod +x rem
 
 #-----------------------------------
-FROM alpine:3.21.3
+FROM debian:bookworm AS runner
 ENV TZ=Asia/Tokyo
+
+RUN apt update \
+    && apt install -y --no-install-recommends ca-certificates \
+    && apt clean \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
