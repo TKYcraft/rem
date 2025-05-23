@@ -41,7 +41,7 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USER }}/rem:${{ env.BUILD_DATETIME }}
-            ${{ secrets.DOCKERHUB_USERNAME }}/rem:latest
+            ${{ secrets.DOCKERHUB_USER }}/rem:latest
       -
         name: discord notification
         uses: docker://alicey/gha2discord:latest
