@@ -13,7 +13,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o rem ./cmd/rem/mai
 RUN chmod +x rem
 
 #-----------------------------------
-FROM debian:bookworm AS runner
+FROM debian:trixie AS runner
 ENV TZ=Asia/Tokyo
 
 RUN apt update \
