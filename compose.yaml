@@ -19,7 +19,7 @@ services:
 
   db:
     container_name: rem-app-db
-    image: postgres:17.5
+    image: postgres:17.11
     environment:
       TZ: Asia/Tokyo
       POSTGRES_USER: postgres
